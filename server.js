@@ -1,8 +1,8 @@
 // server.js
+require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
-require('dotenv').config()
 const path = require('path')
 const fs = require('fs')
 const OpenAI = require('openai')
@@ -30,6 +30,10 @@ const upload = multer({ storage: storage })
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
+})
+
+app.get('/', (req, res) => {
+  res.json({ message: 'Welcome to the Voice Audio AI Assistant API' })
 })
 
 // Endpoint for transcribing audio
@@ -135,5 +139,5 @@ app.post('/api/answer', async (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`)
+  console.log(`Server is running on port: ${port}`)
 })
